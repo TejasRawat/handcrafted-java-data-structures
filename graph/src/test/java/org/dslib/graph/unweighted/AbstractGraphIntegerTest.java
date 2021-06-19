@@ -14,7 +14,6 @@ public class AbstractGraphIntegerTest {
 
     @BeforeEach
     public void init() {
-        System.out.println("----Graph Data Setup----");
         integerGraph = new AbstractGraph();
         integerGraph.addVertex(0);
         integerGraph.addVertex(1);
@@ -53,8 +52,37 @@ public class AbstractGraphIntegerTest {
     }
 
     @Test
-    public void getVerticesInBFSOrder() {
+    public void getVerticesInBFSOrderTest() {
         final Set<Integer> verticesInBFSOrder = integerGraph.getVerticesInBFSOrder(0);
-        System.out.println(verticesInBFSOrder);
+        Integer a[] = {0, 1, 2, 3};
+        int count = 0;
+        for (Integer vertex : verticesInBFSOrder) {
+            Assertions.assertEquals(vertex, a[count]);
+            count++;
+        }
     }
+
+    @Test
+    public void getVerticesInDFAOrderTest() {
+        integerGraph = new AbstractGraph<>();
+        integerGraph.addVertex(1);
+        integerGraph.addVertex(2);
+        integerGraph.addVertex(3);
+        integerGraph.addVertex(4);
+        integerGraph.addVertex(5);
+
+        integerGraph.addEdge(1, 3, false);
+        integerGraph.addEdge(1, 2, false);
+        integerGraph.addEdge(2, 5, false);
+        integerGraph.addEdge(2, 4, false);
+
+        final Set<Integer> verticesInDFSOrder = integerGraph.getVerticesInDFSOrder(1);
+        Integer a[] = {1, 2, 4, 5, 3};
+        int count = 0;
+        for (Integer vertex : verticesInDFSOrder) {
+            Assertions.assertEquals(vertex, a[count]);
+            count++;
+        }
+    }
+
 }

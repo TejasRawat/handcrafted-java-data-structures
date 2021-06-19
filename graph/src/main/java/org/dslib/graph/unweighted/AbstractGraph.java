@@ -117,7 +117,22 @@ public class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public Set<T> getVerticesInDFSOrder(T sourceNode) {
-        return null;
+        Set<T> visitedVertex = new LinkedHashSet<>();
+        Stack<T> nodeStack = new Stack<>();
+        nodeStack.push(sourceNode);
+
+        while (nodeStack.size() > 0) {
+            T pop = nodeStack.pop();
+            visitedVertex.add(pop);
+            final Set<T> connectedVertices = getConnectedVertices(pop);
+
+            for (T vertex : connectedVertices) {
+                if (!visitedVertex.contains(vertex)) {
+                    nodeStack.push(vertex);
+                }
+            }
+        }
+        return visitedVertex;
     }
 
 
