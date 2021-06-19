@@ -1,23 +1,45 @@
 package org.dslib.graph.unweighted;
 
-import java.util.*;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Node0 : [Node1,Node2]
+ * Node1 : [Node2]
+ * Node2 : [Node1,Node3]
+ * Node3 : [Node3]
+ */
 public class AbstractGraphImpl<T> implements Graph<T> {
 
-    Map<T, List<T>> graph = new HashMap<>();
+    Map<T, Set<T>> graph = new HashMap<>();
 
     @Override
-    public Map<T, List<T>> addVertex(T vertex) {
+    public Map<T, Set<T>> addVertex(T vertex) {
         if (graph.containsKey(vertex)) {
             throw new IllegalArgumentException("Vertex already exists");
         }
-        graph.put(vertex, new LinkedList<>());
+        graph.put(vertex, new LinkedHashSet<>());
         return graph;
     }
 
     @Override
-    public Map<T, List<T>> addEdge(T sourceVertex, T targetVertex, Boolean isBidirectional) {
-        return null;
+    public Map<T, Set<T>> addEdge(T sourceVertex, T targetVertex, Boolean isBidirectional) {
+        if (!containsVertex(sourceVertex)) {
+            throw new IllegalArgumentException("Source Vertex does not present");
+        }
+        if (!containsVertex(targetVertex)) {
+            throw new IllegalArgumentException("Target Vertex does not present");
+        }
+        graph.get(sourceVertex).add(targetVertex);
+        if (isBidirectional) {
+            graph.get(targetVertex).add(sourceVertex);
+        }
+        return graph;
     }
 
     @Override
@@ -26,19 +48,34 @@ public class AbstractGraphImpl<T> implements Graph<T> {
     }
 
     @Override
+    public Integer getNumberOfEdges() {
+        Integer numOfEdges = 0;
+        for (Map.Entry<T, Set<T>> entry : graph.entrySet()) {
+            numOfEdges = numOfEdges + entry.getValue().size();
+        }
+        return numOfEdges;
+    }
+
+    @Override
     public Set<T> getVertices() {
         return graph.keySet();
     }
 
     @Override
-    public Map<T, T> getAllEdges() {
-        return null;
+    public MultiValuedMap<T, T> getAllEdges() {
+        MultiValuedMap<T, T> edges = new ArrayListValuedHashMap<>();
+        for (Map.Entry<T, Set<T>> entry : graph.entrySet()) {
+            for (T edge : entry.getValue()) {
+                edges.put(entry.getKey(), edge);
+            }
+        }
+        return edges;
     }
 
     @Override
     public Boolean containsEdge(T source, T destination) {
         if (graph.containsKey(source) && graph.containsKey(destination)) {
-            List<T> sourceEdges = graph.get(source);
+            Set<T> sourceEdges = graph.get(source);
             if (sourceEdges.contains(destination)) {
                 return true;
             }
@@ -55,12 +92,20 @@ public class AbstractGraphImpl<T> implements Graph<T> {
     }
 
     @Override
-    public Set<T> getVerticesInBFSOrder() {
+    public Set<T> getVerticesInBFSOrder(T sourceNode) {
         return null;
     }
 
     @Override
-    public Set<T> getVerticesInDFSOrder() {
+    public Set<T> getVerticesInDFSOrder(T sourceNode) {
         return null;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AbstractGraphImpl{" +
+                "graph=" + graph +
+                '}';
     }
 }
