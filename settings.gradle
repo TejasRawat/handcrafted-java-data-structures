@@ -1,0 +1,3 @@
+rootProject.name = 'dslib-parent'
+include 'graph'
+
