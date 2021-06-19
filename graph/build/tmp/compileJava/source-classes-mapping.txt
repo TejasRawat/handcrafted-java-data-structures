@@ -1,2 +1,0 @@
-org/dslib/graph/Test.java
- org.dslib.graph.Test
