@@ -13,6 +13,8 @@ public interface Graph<T> {
 
     Map<T, Set<T>> deleteEdge(T sourceVertex, T targetVertex, Boolean isBidirectional);
 
+    Map<T, Integer> getNodesWithLevel(T sourceVertex);
+
     Integer getNumOfVertices();
 
     Integer getNumberOfEdges();

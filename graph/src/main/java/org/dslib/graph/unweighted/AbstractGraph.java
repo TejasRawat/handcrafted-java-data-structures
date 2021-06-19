@@ -55,6 +55,29 @@ public class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
+    public Map<T, Integer> getNodesWithLevel(T sourceVertex) {
+        Map<T, Integer> nodeMapWithLevel = new HashMap<>();
+        Queue<T> nodeQueue = new LinkedList<>();
+        Set<T> visitedVertex = new LinkedHashSet<>();
+
+        nodeMapWithLevel.put(sourceVertex, 0);
+        nodeQueue.add(sourceVertex);
+
+        while (nodeQueue.size() > 0) {
+            T peek = nodeQueue.peek();
+            Set<T> connectedVertices = getConnectedVertices(peek);
+            for (T vertex : connectedVertices) {
+                if (!visitedVertex.contains(vertex)) {
+                    nodeMapWithLevel.put(vertex, nodeMapWithLevel.get(peek) + 1);
+                    nodeQueue.add(vertex);
+                }
+            }
+            visitedVertex.add(nodeQueue.poll());
+        }
+        return nodeMapWithLevel;
+    }
+
+    @Override
     public Integer getNumOfVertices() {
         return graph.keySet().size();
     }

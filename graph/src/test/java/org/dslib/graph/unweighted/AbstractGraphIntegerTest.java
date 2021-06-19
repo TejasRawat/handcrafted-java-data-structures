@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 public class AbstractGraphIntegerTest {
@@ -92,6 +93,24 @@ public class AbstractGraphIntegerTest {
             Assertions.assertEquals(vertex, a[count]);
             count++;
         }
+    }
+
+    @Test
+    public void getNodesWithLevelTest() {
+        integerGraph = new AbstractGraph<>();
+        integerGraph.addVertex(1);
+        integerGraph.addVertex(2);
+        integerGraph.addVertex(3);
+        integerGraph.addVertex(4);
+        integerGraph.addVertex(5);
+
+        integerGraph.addEdge(1, 3, false);
+        integerGraph.addEdge(1, 2, false);
+        integerGraph.addEdge(2, 5, false);
+        integerGraph.addEdge(2, 4, false);
+
+        Map<Integer, Integer> nodesWithLevel = integerGraph.getNodesWithLevel(1);
+        System.out.println(nodesWithLevel);
     }
 
 }
