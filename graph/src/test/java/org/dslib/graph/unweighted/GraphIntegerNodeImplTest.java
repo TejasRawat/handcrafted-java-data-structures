@@ -14,6 +14,8 @@ public class GraphIntegerNodeImplTest {
         Integer numOfVertices = integerGraph.getNumOfVertices();
 
         Assertions.assertEquals(3, numOfVertices);
+        Assertions.assertTrue(integerGraph.containsVertex(1));
+
 
     }
 }
