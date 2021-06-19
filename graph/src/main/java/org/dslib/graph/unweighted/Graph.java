@@ -11,11 +11,17 @@ public interface Graph<T> {
 
     Map<T, Set<T>> addEdge(T sourceVertex, T targetVertex, Boolean isBidirectional);
 
+    Map<T, Set<T>> deleteEdge(T sourceVertex, T targetVertex, Boolean isBidirectional);
+
+    Map<T, Integer> getNodesWithLevel(T sourceVertex);
+
     Integer getNumOfVertices();
 
     Integer getNumberOfEdges();
 
     Set<T> getVertices();
+
+    Set<T> getConnectedVertices(T sourceNode);
 
     MultiValuedMap<T, T> getAllEdges();
 
