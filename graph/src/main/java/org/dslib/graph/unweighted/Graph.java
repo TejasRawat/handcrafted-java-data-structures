@@ -17,6 +17,8 @@ public interface Graph<T> {
 
     Set<T> getVertices();
 
+    Set<T> getConnectedVertices(T sourceNode);
+
     MultiValuedMap<T, T> getAllEdges();
 
     Boolean containsEdge(T source, T destination);

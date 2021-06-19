@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import java.util.Collection;
 import java.util.Set;
 
-public class GraphIntegerNodeImplTest {
+public class AbstractGraphIntegerTest {
 
     Graph<Integer> integerGraph;
 
     @BeforeEach
     public void init() {
         System.out.println("----Graph Data Setup----");
-        integerGraph = new GraphIntegerNodeImpl();
+        integerGraph = new AbstractGraph();
         integerGraph.addVertex(0);
         integerGraph.addVertex(1);
         integerGraph.addVertex(2);
@@ -50,5 +50,11 @@ public class GraphIntegerNodeImplTest {
         Assertions.assertEquals(integerGraph.containsEdge(0, 1), true);
         Assertions.assertEquals(integerGraph.containsEdge(0, 3), false);
 
+    }
+
+    @Test
+    public void getVerticesInBFSOrder() {
+        final Set<Integer> verticesInBFSOrder = integerGraph.getVerticesInBFSOrder(0);
+        System.out.println(verticesInBFSOrder);
     }
 }

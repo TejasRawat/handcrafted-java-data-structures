@@ -3,10 +3,7 @@ package org.dslib.graph.unweighted;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Node0 : [Node1,Node2]
@@ -14,7 +11,7 @@ import java.util.Set;
  * Node2 : [Node1,Node3]
  * Node3 : [Node3]
  */
-public class AbstractGraphImpl<T> implements Graph<T> {
+public class AbstractGraph<T> implements Graph<T> {
 
     Map<T, Set<T>> graph = new HashMap<>();
 
@@ -62,6 +59,14 @@ public class AbstractGraphImpl<T> implements Graph<T> {
     }
 
     @Override
+    public Set<T> getConnectedVertices(T sourceNode) {
+        if (graph.containsKey(sourceNode)) {
+            return graph.get(sourceNode);
+        }
+        return new HashSet<>();
+    }
+
+    @Override
     public MultiValuedMap<T, T> getAllEdges() {
         MultiValuedMap<T, T> edges = new ArrayListValuedHashMap<>();
         for (Map.Entry<T, Set<T>> entry : graph.entrySet()) {
@@ -93,7 +98,21 @@ public class AbstractGraphImpl<T> implements Graph<T> {
 
     @Override
     public Set<T> getVerticesInBFSOrder(T sourceNode) {
-        return null;
+        Set<T> visitedVertex = new LinkedHashSet<>();
+        Queue<T> nodeQueue = new LinkedList<>();
+        nodeQueue.add(sourceNode);
+
+        while (nodeQueue.size() > 0) {
+            final T peek = nodeQueue.peek();
+            Set<T> connectedVertices = getConnectedVertices(peek);
+            for (T vertex : connectedVertices) {
+                if (!visitedVertex.contains(vertex)) {
+                    nodeQueue.add(vertex);
+                }
+            }
+            visitedVertex.add(nodeQueue.poll());
+        }
+        return visitedVertex;
     }
 
     @Override
