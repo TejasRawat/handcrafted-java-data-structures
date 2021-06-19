@@ -40,6 +40,21 @@ public class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
+    public Map<T, Set<T>> deleteEdge(T sourceVertex, T targetVertex, Boolean isBidirectional) {
+        if (!containsVertex(sourceVertex)) {
+            throw new IllegalArgumentException("Source Vertex does not present");
+        }
+        if (!containsVertex(targetVertex)) {
+            throw new IllegalArgumentException("Target Vertex does not present");
+        }
+        graph.get(sourceVertex).remove(targetVertex);
+        if (isBidirectional) {
+            graph.get(targetVertex).remove(sourceVertex);
+        }
+        return graph;
+    }
+
+    @Override
     public Integer getNumOfVertices() {
         return graph.keySet().size();
     }

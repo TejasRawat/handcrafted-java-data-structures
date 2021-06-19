@@ -11,6 +11,8 @@ public interface Graph<T> {
 
     Map<T, Set<T>> addEdge(T sourceVertex, T targetVertex, Boolean isBidirectional);
 
+    Map<T, Set<T>> deleteEdge(T sourceVertex, T targetVertex, Boolean isBidirectional);
+
     Integer getNumOfVertices();
 
     Integer getNumberOfEdges();

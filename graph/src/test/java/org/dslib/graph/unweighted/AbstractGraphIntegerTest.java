@@ -29,6 +29,15 @@ public class AbstractGraphIntegerTest {
     }
 
     @Test
+    public void deleteEdgeTest() {
+        integerGraph.deleteEdge(1, 2, false);
+        Set<Integer> connectedVertices = integerGraph.getConnectedVertices(1);
+        for (Integer vertex : connectedVertices) {
+            Assertions.assertNotEquals(vertex, 2);
+        }
+    }
+
+    @Test
     public void addVertexTest() {
         Integer numOfVertices = integerGraph.getNumOfVertices();
         Assertions.assertEquals(4, numOfVertices);
