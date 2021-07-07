@@ -1,3 +1,6 @@
 rootProject.name = 'dslib-parent'
 include 'graph'
+include 'map'
+include 'list'
+include 'bst-tree'
 
