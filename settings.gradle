@@ -3,4 +3,5 @@ include 'graph'
 include 'map'
 include 'list'
 include 'bst-tree'
+include 'stack'
 
