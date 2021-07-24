@@ -13,9 +13,11 @@ public class BinaryTreeTest {
     @BeforeEach
     public void init() {
         /**
+         *
          *      1
          *    2   3
          *  4  5
+         *
          */
         binaryTree = new BinaryTreeImpl<>();
         binaryTree.root = new TreeNode(1);
