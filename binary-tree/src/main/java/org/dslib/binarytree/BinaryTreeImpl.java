@@ -65,5 +65,75 @@ public class BinaryTreeImpl<E> {
         return visitedNodes;
 
     }
+
+    public E addElementsInLevelOrder(E element) {
+        if (Objects.isNull(root)) {
+            root = createNewNode(element);
+            return element;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode peek = queue.poll();
+            if (Objects.isNull(peek.left)) {
+                peek.left = createNewNode(element);
+                return element;
+            } else if (Objects.isNull(peek.right)) {
+                peek.right = createNewNode(element);
+                return element;
+            }
+
+            if (Objects.nonNull(peek.left)) {
+                queue.add(peek.left);
+            }
+            if (Objects.nonNull(peek.right)) {
+                queue.add(peek.right);
+            }
+        }
+
+        return null;
+    }
+
+    private TreeNode<E> createNewNode(E element) {
+        TreeNode<E> treeNode = new TreeNode<>(element);
+        treeNode.left = null;
+        treeNode.right = null;
+        return treeNode;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

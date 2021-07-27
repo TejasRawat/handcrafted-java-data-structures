@@ -51,13 +51,25 @@ public class BinaryTreeTest {
 
     @Test
     public void bfsOrder() {
-        List<Integer> dfsOrder = binaryTree.getBFSOrder();
+        List<Integer> bsfOrder = binaryTree.getBFSOrder();
         Integer a[] = {1, 2, 3, 4, 5};
         int index = 0;
-        for (Integer vertex : dfsOrder) {
+        for (Integer vertex : bsfOrder) {
             Assertions.assertEquals(vertex, a[index]);
             index++;
         }
+    }
+
+
+    @Test
+    public void addElementTest() {
+        binaryTree = new BinaryTreeImpl<>();
+        int sizeOfElements = 10;
+        for (int i = 1; i <= sizeOfElements; i++) {
+            binaryTree.addElementsInLevelOrder(i);
+        }
+        List<Integer> bsfOrder = binaryTree.getBFSOrder();
+        Assertions.assertEquals(sizeOfElements, bsfOrder.size());
     }
 
 
