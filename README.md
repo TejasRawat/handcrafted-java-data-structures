@@ -4,7 +4,7 @@
 This project contains **handcrafted implementations** of common data structures in Java.  
 The goal is to build everything **from scratch** to understand how core classes like `ArrayList`, `LinkedList`, `Stack`, and `Queue` really work under the hood.
 
-Instead of relying on `java.util.*`, I wrote my own **custom data structures** step by step —  
+Instead of relying on `java.util.*`, I wrote my own **custom data structures** step by step 
 like a "handmade" version of the Java Collections Framework.
 
 ---
